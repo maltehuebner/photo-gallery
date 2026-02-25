@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fotogalerie &mdash; {{ slug }}{% endblock %}
+
+{% block body %}
+<header>
+    <div class="logo">
+        <div class="logo-icon">t</div>
+        <div class="logo-text">Tegtmeier <span>Fotogalerie</span></div>
+    </div>
+    <div class="header-info">{{ slug }}</div>
+</header>
+
+<div class="hero">
+    <h1>Event-Fotogalerie</h1>
+    <p>Alle Fotos der Veranstaltung zum Ansehen und Herunterladen.</p>
+    <div class="photo-count">{{ photos|length }} Foto{{ photos|length != 1 ? 's' : '' }}</div>
+</div>
+
+{% if photos|length > 0 %}
+<div class="gallery">
+    <div class="gallery-grid">
+        {% for photo in photos %}
+        <div class="gallery-item" data-index="{{ loop.index0 }}" data-src="{{ photo.path }}">
+            <img src="{{ photo.path | imagine_filter('square_thumb') }}" alt="{{ photo.filename }}" loading="{{ loop.index <= 10 ? 'eager' : 'lazy' }}">
+            <div class="overlay">
+                <div class="expand-icon">
+                    <svg viewBox="0 0 24 24"><path d="M15 3h6v6h-2V5.41L13.41 11 12 9.59 17.59 4H15V3zM3 15h2v2.59L10.59 12 12 13.41 6.41 19H9v2H3v-6z"/></svg>
+                </div>
+                <span class="photo-number">{{ loop.index }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="empty-state">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor">
+        <path d="M21 3H3a1 1 0 00-1 1v16a1 1 0 001 1h18a1 1 0 001-1V4a1 1 0 00-1-1zm-1 16H4V5h16v14z"/>
+        <path d="M14.5 11a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM4 19l4-5 2.5 3 3.5-4.5 6 6.5H4z"/>
+    </svg>
+    <h2>Noch keine Fotos vorhanden</h2>
+    <p>Fotos werden in K&uuml;rze verf&uuml;gbar sein.</p>
+</div>
+{% endif %}
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-header">
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+        <div class="lightbox-actions">
+            <button class="lightbox-btn close-btn" id="closeLightbox" title="Schlie&szlig;en (Esc)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button class="lightbox-nav prev" id="prevBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
+    <div class="lightbox-image-container">
+        <img id="lightboxImage" src="" alt="Foto">
+    </div>
+
+    <button class="lightbox-nav next" id="nextBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+    <div class="lightbox-footer">
+        <a class="download-btn" id="downloadBtn" href="#" download>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M13 12.586l3.243-3.243 1.414 1.414L12 16.414l-5.657-5.657 1.414-1.414L11 12.586V2h2v10.586z"/>
+                <path d="M4 14h2v4h12v-4h2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4z"/>
+            </svg>
+            Foto herunterladen
+        </a>
+    </div>
+</div>
+
+<footer>
+    Tegtmeier Internet Solutions &middot; Fotogalerie
+</footer>
+{% endblock %}
