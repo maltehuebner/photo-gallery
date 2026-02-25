@@ -20,7 +20,7 @@
 <div class="gallery">
     <div class="gallery-grid">
         {% for photo in photos %}
-        <div class="gallery-item" data-index="{{ loop.index0 }}" data-src="{{ photo.path }}">
+        <div class="gallery-item" data-index="{{ loop.index0 }}" data-src="{{ photo.path | imagine_filter('lightbox') }}" data-original="{{ photo.path }}">
             <img src="{{ photo.path | imagine_filter('square_thumb') }}" alt="{{ photo.filename }}" loading="{{ loop.index <= 10 ? 'eager' : 'lazy' }}">
             <div class="overlay">
                 <div class="expand-icon">

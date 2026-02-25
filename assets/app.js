@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLightbox() {
         const item = items[currentIndex];
-        const src = item.dataset.src;
-        lightboxImage.src = src;
+        lightboxImage.src = item.dataset.src;
         lightboxCounter.textContent = `${currentIndex + 1} / ${totalPhotos}`;
-        document.getElementById('downloadBtn').href = src;
+        document.getElementById('downloadBtn').href = item.dataset.original;
     }
 
     function nextPhoto() {
