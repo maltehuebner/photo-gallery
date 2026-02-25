@@ -26,9 +26,12 @@ class GalleryController extends AbstractController
             ->depth(0)
             ->sortByName();
 
+        $pattern = [];
         foreach (self::PHOTO_EXTENSIONS as $ext) {
-            $finder->name('*.' . $ext);
+            $pattern[] = '*.' . $ext;
+            $pattern[] = '*.' . strtoupper($ext);
         }
+        $finder->name($pattern);
 
         $photos = [];
         foreach ($finder as $file) {
