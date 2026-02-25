@@ -40,19 +40,6 @@ header {
     gap: 12px;
 }
 
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--accent-cyan);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--bg-primary);
-}
-
 .logo-text {
     font-size: 20px;
     font-weight: 500;
