@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxCounter = document.getElementById('lightboxCounter');
+    const imageContainer = document.querySelector('.lightbox-image-container');
     const totalPhotos = items.length;
     let currentIndex = 0;
 
@@ -25,10 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateLightbox() {
         const item = items[currentIndex];
+        imageContainer.classList.add('loading');
         lightboxImage.src = item.dataset.src;
         lightboxCounter.textContent = `${currentIndex + 1} / ${totalPhotos}`;
         document.getElementById('downloadBtn').href = item.dataset.original;
     }
+
+    lightboxImage.addEventListener('load', () => {
+        imageContainer.classList.remove('loading');
+    });
 
     function nextPhoto() {
         currentIndex = (currentIndex + 1) % totalPhotos;
